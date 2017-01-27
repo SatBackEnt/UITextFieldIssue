@@ -36,21 +36,43 @@ var HelloWorldLayer = cc.Layer.extend({
         this.addChild(this.sprite, 0);
         
         
-        cc.loader.loadJson("res/Inspirations.json", function(error, data){
-            if( !error ) {
-                cc.log(data); //data is the json object
-                jsdata = data ;
-            }
-        });
+//        cc.loader.loadJson("res/Inspirations.json", function(error, data){
+//            if( !error ) {
+//                cc.log(data); //data is the json object
+//                jsdata = data ;
+//            }
+//        });
 
+//        var textEntryLayer = new TextEntryLayer();
+//        this.addChild(textEntryLayer) ;
         
-        var scene = new TextInputUIScene();
-         if (scene) 
-         {
-             scene.runLayer();
-             //cc.director.runScene(scene);
-
-         }
+        
+//        var airplaneLayer = new AirplaneLayer();
+//        this.addChild(airplaneLayer) ;
+        
+        var aLayer = new MenuLayer();
+        this.addChild(aLayer) ;
+        
+//         var scene = new MenuLayerScene();
+//         if (scene) 
+//         {
+//             cc.director.runScene(scene);
+//         }
+        
+//         var scene = new RichConsoleScene();
+//         if (scene) 
+//         {
+//             cc.director.runScene(scene);
+//         }
+        
+        
+//        var scene = new TextInputUIScene();
+//         if (scene) 
+//         {
+//             scene.runLayer();
+//             //cc.director.runScene(scene);
+//
+//         }
         
 //        var scene = new TextInputTestScene();
 //         if (scene) 
@@ -61,10 +83,11 @@ var HelloWorldLayer = cc.Layer.extend({
 //         }
         
         // Edit box 1 with default value and background sprite at normal state
-//        this._box1 = cc.EditBox.create(cc.size(100, 40), cc.Scale9Sprite.create(res.HelloWorld_png));
+//        this._box1 = cc.EditBox.create(cc.size(480, 320), cc.Scale9Sprite.create(res.blackBG_png));
 //        this._box1.setText("Image");
 //        this._box1.setPosition(220, 250);
-//        this._box1.setFontColor(cc.c3b(15, 250, 245));
+//        this._box1.setFontColor(cc.color(15, 250, 245)) ; //new cc.Color3B(255,0,0)
+//        this._box1.fontSize = 42;
 //        this._box1.setDelegate(this);
 //        this.addChild(this._box1);
         
@@ -88,29 +111,69 @@ var HelloWorldLayer = cc.Layer.extend({
 //
 //        
 //        this.addChild(this._box1);
+        
+//        Text* text = Text::create("Text can line wrap","AmericanTypewriter",32);
+//        text->ignoreContentAdaptWithSize(false);
+//        text->setContentSize(Size(280, 150));
+//        text->setTextHorizontalAlignment(TextHAlignment::CENTER);
+//        text->setPosition(Vec2(widgetSize.width / 2.0f, widgetSize.height / 2.0f - text->getContentSize().height / 8.0f));
+//        _uiLayer->addChild(text); 
+        
+//        var textArea = new ccui.Text("Text can line wrap when it is long and there are many characters \n What comes next","AmericanTypewriter", 22) ;
+//        textArea.setTextAreaSize (cc.size(400, 400)) ;
+//        textArea.ignoreContentAdaptWithSize(false); // need for text wrap
+//        textArea.setTextHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
+////        textArea.setTextVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_CENTER) ;
+////        textArea.setString("TextArea widget can line wrap")
+////        textArea.setFontName("AmericanTypewriter")
+////        textArea.setFontSize(32)
+//        textArea.enableShadow(cc.color.RED, cc.size(2,-2) ) ;
+////
+////        textArea.enableOutline(cc.color.ORANGE, cc.size(1,1)) // Invalid for web/html
+////        textArea.enableGlow(cc.color.GREEN) ; //????
+//        textArea.setTouchScaleChangeEnabled(true) ; //????
+//        textArea.setTouchEnabled( true );
+//
+//        //
+//        textArea.setPosition(cc.p(size.width / 2, size.height / 2 - textArea.getContentSize().height / 8))  ;
+//        this.addChild(textArea) ;
 
         return true;
-    }
+    },
     
     
     
     // Edit box delegation functions: editBoxEditingDidBegin, editBoxEditingDidEnd, editBoxTextChanged, editBoxReturn
-//    editBoxEditingDidBegin: function (editBox) {
-//        logTest("editBox DidBegin !");
-//    },
-//
-//    editBoxEditingDidEnd: function (editBox) {
-//        logTest("editBox DidEnd !");
-//    },
-//
-//    editBoxTextChanged: function (editBox, text) {
-//        logTest("editBox, TextChanged, text: " + text);
-//    },
-//
-//    editBoxReturn: function (editBox) {
-//        logTest("editBox  was returned !");
-//        inspirationSearch(editBox) ;
-//    },
+    editBoxEditingDidBegin: function (editBox) {
+        cc.log("editBox DidBegin !"); //logTest()
+    },
+
+    editBoxEditingDidEnd: function (editBox) {
+        cc.log("editBox DidEnd !");
+    },
+
+    editBoxTextChanged: function (editBox, text) {
+        cc.log("editBox, TextChanged, text: " + text);
+    },
+
+    editBoxReturn: function (editBox) {
+        cc.log("editBox  was returned !");
+        //inspirationSearch(editBox) ;
+    }
+    
+//     _getEditBoxName :function(editBox){
+//        if (this._box1 == editBox) {
+//            return "box1";
+//        } else if (this._box2 == editBox) {
+//            return "box2";
+//        } else if (this._box3 == editBox) {
+//            return "box3";
+//        } else if (this._box4 == editBox) {
+//            return "box4";
+//        }
+//        return "Unknown EditBox";
+//    }
+    
 //    
 //    TextFieldTTFReturn: function (editBox) {
 //        logTest("TextField was returned !");

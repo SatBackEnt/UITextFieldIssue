@@ -1,0 +1,8 @@
+cocos new DayQ -p com.satbackent.DayQ -l js -d ~/Projects/
+cd ~/Projects/DayQ
+
+cocos compile -p web -m release
+
+cocos compile -p mac -m release
+cocos compile -p ios -m release --sign-identity "iPhone Distribution:xxxxxxxx"
+

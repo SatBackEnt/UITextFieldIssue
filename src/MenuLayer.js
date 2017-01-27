@@ -1,11 +1,10 @@
-// TextInputUI.js
+// MenuLayer.js
 // Add to project.json:
 // "modules" : ["cocos2d", "extensions"],
 // 
 
-var rConsole ;
 
-var TextInputUILayer = cc.Layer.extend({
+var MenuLayer = cc.Layer.extend({
     textField: null,
 
     ctor:function() {
@@ -16,11 +15,11 @@ var TextInputUILayer = cc.Layer.extend({
     },
 
     title:function () {
-        return "Text Input Test";
+        return "Daily Quote";
     },
     
     subtitle:function () {
-        return "Input Subtitle";
+        return "Get Your Inspiration!";
     },
 
     onEnter:function () {
@@ -39,40 +38,22 @@ var TextInputUILayer = cc.Layer.extend({
             l.setPosition(cc.p(winSize.width / 2, winSize.height - 80));
         }
         
+        this.menuSetup();
+        
         textField = new ccui.TextField( );
         textField.setTouchEnabled( true );
         textField.fontName = "Arial";
         textField.placeHolder = "Input text here";
         textField.fontSize = 30;
         textField.color = cc.color.WHITE ;
-
-        // optional length functions
-//        textField.setMaxLengthEnabled( true );
-//        textField.setMaxLength( 12 );
-
-        // optional password character mask functions
-//        textField.setPasswordEnabled( true );
-//        textField.setPasswordStyleText( "*" );
-        
-        textField.setPosition(cc.p(winSize.width / 2, winSize.height / 2));
+        textField.setPosition(cc.p(winSize.width / 2, winSize.height*0.25));
         this.addChild(textField, 1);
         
-        // this is used to assign the touch event listener (usually is coded when the text field is constructed)
         textField.addEventListener( this.textFieldEvent, this );
-        
-        //this.addRichText();
-
-        
-        rConsole = new RichConsole() ;
-        rConsole.changeWidthAndHeight(400, 200);
-        rConsole.setPosition(cc.p( cc.winSize.width / 2 - rConsole.width / 2, rConsole.height / 4));
-        rConsole.setColor(cc.color.BLUE) ;
-        this.addChild(rConsole) ;
-        rConsole.log("Test in the console") ;
 
     },
     
-     // this is called when the user interacts with the text field
+    // this is called when the user interacts with the text field
     textFieldEvent: function( sender, type )
     {
         switch ( type )
@@ -83,7 +64,7 @@ var TextInputUILayer = cc.Layer.extend({
                 console.log( "Attach IME %s", textField.string );
                 
                 var widgetSize = cc.winSize ;
-                textField.runAction( new cc.MoveTo( 0.225, cc.p(screenSize.width / 2.0, screenSize.height / 2.0 + textField.getContentSize().height / 2.0)) ) ;
+//                textField.runAction( new cc.MoveTo( 0.225, cc.p(screenSize.width / 2.0, screenSize.height / 2.0 + textField.getContentSize().height / 2.0)) ) ;
 //                
 //                textField.setTextHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT);
 //                textField.setTextVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_TOP);
@@ -94,7 +75,6 @@ var TextInputUILayer = cc.Layer.extend({
             case ccui.TextField.EVENT_DETACH_WITH_IME:
                 //cc.log( "Detach IME string %s", textField.string );
                 console.log( "Detach IME %s", textField.string );
-                rConsole.log( textField.string ) ;
                 
                 break;
 
@@ -112,40 +92,66 @@ var TextInputUILayer = cc.Layer.extend({
         }
     },
     
-    addRichText: function( )
+    menuSetup: function( )
     {
-        var richText = new ccui.RichText( );
-        // sets whether or not the element resizes based on its content aka rich text items added below
-        richText.ignoreContentAdaptWithSize( false );
-        richText.width = 120;
-        richText.height = 100;
-
-        var re1 = new ccui.RichElementText( 1, cc.color.WHITE, 255, "This color is white", "Arial", 10 );
-        var re2 = new ccui.RichElementText( 2, cc.color.YELLOW, 255, "And this is yellow. ", "Arial", 10 );
-        var re3 = new ccui.RichElementText( 3, cc.color.BLUE, 255, "This one is blue. ", "Arial", 10 );
-        var re4 = new ccui.RichElementText( 4, cc.color.GREEN, 255, "And this is Green. ", "Arial", 25 );
-        var re5 = new ccui.RichElementText( 5, cc.color.RED, 255, "This is well red . ", "Arial", 10 );
-        var re6 = new ccui.RichElementText( 6, cc.color.ORANGE, 255, "WELL DONE AT THE END. ", "Arial", 10 );
-
-        // add all the rich text items
-        richText.pushBackElement( re1 );
-        richText.pushBackElement( re2 );
-        richText.pushBackElement( re3 );
-        richText.pushBackElement( re4 );
-        richText.pushBackElement( re5 );
-        // insert the element at a particular index
-        richText.insertElement( re6, 5 );
         
-        richText.setPosition(cc.p(cc.winSize.width / 2, cc.winSize.height / 4));
-        this.addChild(richText, 1);
-    }
+        var airplaneFuncCall = function( )
+        {
+            var aScene = new cc.Scene ;
+            var airplaneLayer = new AirplaneLayer();
+            
+            aScene.addChild(airplaneLayer);
+            cc.director.runScene(aScene);
+        };
+        
+        var addQuoteFuncCall = function( )
+        {
+            var aScene = new cc.Scene ;
+            var addLayer = new AddQuoteLayer();
+            
+            aScene.addChild(addLayer);
+            cc.director.runScene(aScene);
+        };
+        
+        var addUserFuncCall = function( )
+        {
+            var aScene = new cc.Scene ;
+            var aLayer = new TextEntryLayer(); // AddUserLayer(); TextInputUILayer  TextEntryLayer
+            
+            aScene.addChild(aLayer);
+            cc.director.runScene(aScene);
+        };
+        
+        
+        var menuItem1 = cc.MenuItemFont.create("Airplanes", airplaneFuncCall) ;
+        var menuItem2 = new cc.MenuItemImage( res.s_pathR1, res.s_pathR2, addQuoteFuncCall );
+        var menuItem3 = new cc.MenuItemImage( res.s_pathR1, res.s_pathR2, addUserFuncCall );
+//        var menuItem2 = cc.MenuItemFont.create("Add User", addUserFuncCall) ;
+//        var menuItem2 = cc.MenuItemSprite.create(res.s_pathB1, res.s_pathB2, addUserFuncCall) ;
+        
+        var menu = new cc.Menu( menuItem1, menuItem2, menuItem3 );
+        menu.alignItemsVertically();
+        
+        /***** MenuItemFont *****/
+        menuItem1.setFontName( "Thonburi" );
+        menuItem1.setFontSize( 20 );
+        
+        this.addChild(menu, 1) ;
+                                             
+//        var richText = new ccui.RichText( );
+//        
+//        richText.setPosition(cc.p(cc.winSize.width / 2, cc.winSize.height / 4));
+//        this.addChild(richText, 1);
+    },
+    
+    
     
 });
 
 
 
 
-var TextInputUIScene = cc.Scene.extend({
+var MenuLayerScene = cc.Scene.extend({
     
     ctor:function (bPortrait) {
         this._super();
@@ -160,7 +166,7 @@ var TextInputUIScene = cc.Scene.extend({
     
     runLayer:function () 
     {
-        var layer = new TextInputUILayer();
+        var layer = new MenuLayer();
 
         this.addChild(layer);
         cc.director.runScene(this);

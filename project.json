@@ -14,7 +14,15 @@
     "jsList" : [
         "src/resource.js",
         "src/app.js",
+        "src/AirplaneLayer.js",
+        "src/airplaneSprite.js",
+        "src/AddQuoteLayer.js", 
+        "src/AddUserLayer.js",
+        "src/FormLayout.js",
+        "src/MenuLayer.js",
         "src/TextInputTest.js",
-        "src/TextInputUI.js"
+        "src/TextInputUI.js",
+        "src/TextEntryLayer.js",
+        "src/RichConsole.js"
     ]
 }
